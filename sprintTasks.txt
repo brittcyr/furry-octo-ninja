@@ -1,26 +1,25 @@
-Version 1.0 is the initial version. It is minimally viable
-
+Version 1.1
 
 Sprint tasks:
 
+Tasks Done:
+Save and open saved games of chess
+Display moves from the history
+Randomize
+
 
 Sprint Backlog:
+Networking
 Displaying status of thinking updates
-Save and open saved games of chess
-Encapsulation and security
-Design review
-Display moves from the history
-Allow to change sides
 Improved search / pruning Currently 1:10 for depth = 6 e2e4 response
 GUI
 Multi-thread to allow for work while waiting
 Array of loc for optimizing getMoves
-Move castling to a try catch block to make easier for reverse castling
 Optimize by moving all stack pushes away so that the searcher, and chesspieces are in the ChessBoard
-Web Service API
-Java API
-CL API
+Memoization
 Modify the getMoves so that it is faster
 Improve Heuristic
-Networking
-Randomize
+Encapsulation
+Actual CL, using java CLI
+WS API
+Move castling to a try catch block to make easier for reverse castling

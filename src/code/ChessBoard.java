@@ -64,7 +64,7 @@ public class ChessBoard {
 
     double[][] scores = {pawn, pawn, rook, knight, bishop, queen, king};
     private final char[] pieces = { '-', 'P', 'R', 'N', 'B', 'Q', 'K' };
-    private int[] board;
+    public int[] board;
 
     /*
      * This is the constructor and initializes the board
@@ -380,6 +380,12 @@ public class ChessBoard {
             if (board[x] == -1){
                 board[x] = -5;
             }
+        }
+    }
+    
+    public void setBoard(int[] board2){
+        for(int x = 0; x < 63; x++){
+            board[x] = board2[x];
         }
     }
 }

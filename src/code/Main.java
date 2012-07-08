@@ -3,6 +3,7 @@ package code;
 public class Main {
 
     static int searchDepth = 5;
+    static ChessBoard board ;
     
     /*
      * Insertion point for the project
@@ -11,8 +12,7 @@ public class Main {
      */
     public static void main(String[] args) {
         boolean playerColor = true;
-
-        ChessBoard board = new ChessBoard();
+        board = new ChessBoard();
         if (!playerColor) {
             try {
                 Searcher.searchLayer1(!playerColor, board, searchDepth);

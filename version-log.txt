@@ -1,0 +1,9 @@
+Britt Cyr ChessBot Version History
+
+Version 1.0:
+Minimally viable product. Can play by the rules of chess. Does not understand all forms of stalemate
+though. Current search time for response to e2-e4 on 6 depth is 1:10
+
+Version 1.1
+Increased options now includes save and open file. Randomize slightly so games are interesting.
+Also, fixed a bug in the end of game.

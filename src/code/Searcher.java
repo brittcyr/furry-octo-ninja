@@ -1,6 +1,7 @@
 package code;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Searcher {
 
@@ -60,20 +61,23 @@ public class Searcher {
      * 
      * @return result double that is the score at this node
      */
-    public static double searchR(boolean color, ChessBoard board, int depth) {
+    public static double searchR(boolean color, int depth) {
         if(depth == 0){
             return 0.0;
         }
-        ArrayList<int[]> moves = board.getMoves(color);
+        ArrayList<int[]> moves = Main.board.getMoves(color);
         int size = moves.size();
         double[] scores = new double[size];
 
         int index = 0;
         for (int[] m : moves) {
-            int prevPiece = board.getBoard()[m[1]];
-            board.makeMove(m);
-            scores[index] = board.scoreChange(m, prevPiece) + searchR(!color, board, depth - 1);
-            board.undoMove(m, prevPiece);
+            int prevPiece = Main.board.board[m[1]];
+            if (Math.abs(prevPiece) == 6){
+                return prevPiece*100.0*-1;
+            }
+            Main.board.makeMove(m);
+            scores[index] = Main.board.scoreChange(m, prevPiece) + searchR(!color, depth - 1);
+            Main.board.undoMove(m, prevPiece);
             index++;
         }
 
@@ -114,7 +118,7 @@ public class Searcher {
         for (int[] m : moves) {
             int prevPiece = board.getBoard()[m[1]];
             board.makeMove(m);
-            scores[index] = board.scoreChange(m, prevPiece) + searchR(!color, board, depth - 1);
+            scores[index] = board.scoreChange(m, prevPiece) + searchR(!color, depth - 1);
             move[index] = m;
             board.undoMove(m, prevPiece);
             index++;
@@ -122,6 +126,11 @@ public class Searcher {
 
         int bestIndex = 0;
         double bestScore = scores[0];
+        Random r = new Random();
+        for(int x = 1; x < size; x++){
+            double scale = 10.0;
+            scores[x] *= (r.nextDouble()+scale)/scale;
+        }
 
         for (int x = 1; x < size; x++) {
             if ((scores[x] > bestScore && color)
@@ -144,6 +153,7 @@ public class Searcher {
     
     
     public static void determineWinner(ChessBoard board, boolean playerColor){
+        board.prettyPrint();
         System.out.println("GAME OVER");
         if(board.getValidMoves(playerColor).size()==0){
             ArrayList<int[]> compMoves = board.getMoves(!playerColor);

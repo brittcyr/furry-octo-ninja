@@ -27,7 +27,18 @@ public class CLI {
             }
             
             String end = in.readLine();
-
+            
+            userMakeMove(board, playerColor, start, end);
+        }
+        catch (Exception e) {
+            board.prettyPrint();
+            System.out.println("\nINVALID INPUT");
+            makeMoveForUser(board, playerColor);
+        }
+    }
+    
+    public static void userMakeMove(ChessBoard board, boolean playerColor, String start, String end)
+    throws Exception{
             int startLet = toInt(start.substring(0, 1));
             int endLet = toInt(end.substring(0, 1));
 
@@ -45,12 +56,7 @@ public class CLI {
             board.makeMove(new int[] { startInt, endInt });
             board.history.add(new int[] {startInt, endInt});
             board.checkPawnPromote();
-            
-        } catch (Exception e) {
-            board.prettyPrint();
-            System.out.println("\nINVALID INPUT");
-            makeMoveForUser(board, playerColor);
-        }
+        
     }
 
     public static boolean isValidMoveForUser(ChessBoard board, boolean color,

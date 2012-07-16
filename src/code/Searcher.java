@@ -3,6 +3,8 @@ package code;
 import java.util.ArrayList;
 import java.util.Random;
 
+import View.ChessView;
+
 public class Searcher {
 
     /*
@@ -65,19 +67,19 @@ public class Searcher {
         if(depth == 0){
             return 0.0;
         }
-        ArrayList<int[]> moves = Main.board.getMoves(color);
+        ArrayList<int[]> moves = ChessView.board.getMoves(color);
         int size = moves.size();
         double[] scores = new double[size];
 
         int index = 0;
         for (int[] m : moves) {
-            int prevPiece = Main.board.board[m[1]];
+            int prevPiece = ChessView.board.board[m[1]];
             if (Math.abs(prevPiece) == 6){
                 return prevPiece*100.0*-1;
             }
-            Main.board.makeMove(m);
-            scores[index] = Main.board.scoreChange(m, prevPiece) + searchR(!color, depth - 1);
-            Main.board.undoMove(m, prevPiece);
+            ChessView.board.makeMove(m);
+            scores[index] = ChessView.board.scoreChange(m, prevPiece) + searchR(!color, depth - 1);
+            ChessView.board.undoMove(m, prevPiece);
             index++;
         }
 
@@ -105,9 +107,9 @@ public class Searcher {
      * 
      * @return result double that is the score at this node
      */
-    public static void searchLayer1(boolean color, ChessBoard board, int depth) throws Exception{
+    public static int[] searchLayer1(boolean color, ChessBoard board, int depth) throws Exception{
         ArrayList<int[]> moves = board.getValidMoves(color);
-        if (moves.size() == 0){
+        if (checkGameOver(board, color)){
             throw new Exception("GAME OVER");
         }
         int size = moves.size();
@@ -143,12 +145,8 @@ public class Searcher {
         board.makeMove(move[bestIndex]);
         board.history.add(move[bestIndex]);
         board.checkPawnPromote();
-    
-        ArrayList<int[]> validMoves = board.getValidMoves(!color);
-        if (validMoves.size() == 0){
-            throw new Exception("GAME OVER");
-        }
-    
+
+        return move[bestIndex];
     }
     
     
@@ -190,7 +188,15 @@ public class Searcher {
     board.prettyPrint();
     }
     
+    public static boolean checkGameOver(ChessBoard board, boolean playerToMove){
+        ArrayList<int[]> moves = board.getValidMoves(playerToMove);
+        if (moves.size() == 0){
+            return true;
+        }
+        return false;
+    }
+    
     public static void hint(ChessBoard board, boolean playerColor) throws Exception{
-        searchLayer1(playerColor,board,Main.searchDepth);
+        searchLayer1(playerColor,board,ChessView.searchDepth);
     }
 }

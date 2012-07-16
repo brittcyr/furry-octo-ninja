@@ -1,16 +1,19 @@
 Version 1.1
 
 Sprint tasks:
-Optimize by moving all stack pushes away so that the searcher, and chesspieces are in the ChessBoard
-Move castling to a try catch block to make easier for reverse castling
 
 Tasks Done:
+Clean up design to allow better UI
+GUI
+Fixed bug in endgame
 
 Sprint Backlog:
-Displaying status of thinking updates
+Keep list of white locs and blacklocs to speed up expansion
+Add more features to GUI
+Prevent user from entering bad moves
 Improved search / pruning Currently 1:10 for depth = 6 e2e4 response
-GUI
 Multi-thread to allow for work while waiting
-Array of loc for optimizing getMoves
 Improve Heuristic
-WS API
+Move castling to a try catch block to make easier for reverse castling
+Fix stalemate
+Opening tables

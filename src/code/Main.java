@@ -1,5 +1,9 @@
 package code;
 
+import javax.swing.SwingUtilities;
+
+import View.ChessView;;
+
 public class Main {
 
     static int searchDepth = 5;
@@ -11,6 +15,14 @@ public class Main {
      * @param args String[] args are the parameters
      */
     public static void main(String[] args) {
+
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ChessView main = new ChessView();
+                main.setVisible(true);
+            }
+        });
+        /*
         boolean playerColor = true;
         board = new ChessBoard();
         if (!playerColor) {
@@ -29,6 +41,6 @@ public class Main {
                 Searcher.determineWinner(board, playerColor);
                 break;
             }
-        }
+        }*/
     }
 }

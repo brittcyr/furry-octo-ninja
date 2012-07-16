@@ -103,55 +103,7 @@ public class ChessBoard {
                 
                 switch(val){
                 case 1:
-                        int me = square;
-                        if (color) {
-                            if (me >= 42) {
-                                if (board[me - 8] == 0 && board[me - 16] == 0) {
-                                    int[] two = { me, me - 16 };
-                                    moves.add(two);
-                                }
-                            }
-                            if (me > 7 && board[me - 8] == 0) {
-                                int[] one = { me, me - 8 };
-                                moves.add(one);
-                            }
-                            if (me % 8 > 0) {
-                                if (board[me - 9] < 0) {
-                                    int[] captLeft = { me, me - 9 };
-                                    moves.add(captLeft);
-                                }
-                            }
-                            if (me % 8 < 7) {
-                                if (board[me - 7] < 0) {
-                                    int[] captRight = { me, me - 7 };
-                                    moves.add(captRight);
-                                }
-                            }
-                        } else {
-                            if (me < 16) {
-                                // Then we are in the second row
-                                if (board[me + 8] == 0 && board[me + 16] == 0) {
-                                    int[] two = { me, me + 16 };
-                                    moves.add(two);
-                                }
-                            }
-                            if (me < 63 && board[me + 8] == 0) {
-                                int[] one = { me, me + 8 };
-                                moves.add(one);
-                            }
-                            if (me % 8 > 0) {
-                                if (board[me + 7] > 0) {
-                                    int[] captLeft = { me, me + 7 };
-                                    moves.add(captLeft);
-                                }
-                            }
-                            if (me % 8 < 7) {
-                                if (board[me + 9] > 0) {
-                                    int[] captRight = { me, me + 9 };
-                                    moves.add(captRight);
-                                }
-                            }
-                        }
+                    Pawn.getMoves(moves, board, square);
                     break;
                 case 2:
                     Rook.getMoves(moves, board, square);

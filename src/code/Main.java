@@ -22,25 +22,5 @@ public class Main {
                 main.setVisible(true);
             }
         });
-        /*
-        boolean playerColor = true;
-        board = new ChessBoard();
-        if (!playerColor) {
-            try {
-                Searcher.searchLayer1(!playerColor, board, searchDepth);
-            } catch (Exception e) {
-            }
-        }
-
-        while (true) {
-            try {
-                board.prettyPrint();
-                CLI.makeMoveForUser(board, playerColor);
-                Searcher.searchLayer1(!playerColor, board, searchDepth);
-            } catch (Exception e) {
-                Searcher.determineWinner(board, playerColor);
-                break;
-            }
-        }*/
     }
 }

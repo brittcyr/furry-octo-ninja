@@ -30,18 +30,23 @@ public class ChessView extends JFrame implements MouseListener, MouseMotionListe
     /**
      * The ChessGUI fields are all of the objects in the GUI.
      */
-    private JPanel chessBoard;
     Dimension boardSize = new Dimension(600, 600);
-    private JLayeredPane layeredPane;
+    Dimension GUISize = new Dimension(800, 800);
     private final Color WHITE = Color.white;
     private final Color BROWN = new Color(128,40,0);
+    
     JLabel chessPiece;
     int xAdjustment;
     int yAdjustment;
     int loc;
     public static ChessBoard board;
+    
     public static int searchDepth = 5;
     boolean playerColor;
+    
+    boolean boardLock;
+    private JPanel chessBoard;
+    private JLayeredPane layeredPane;
     
 
     public ChessView(){
@@ -49,6 +54,7 @@ public class ChessView extends JFrame implements MouseListener, MouseMotionListe
         
         board = new ChessBoard();
         playerColor = true;
+        boardLock = false;
         layeredPane = new JLayeredPane();
         getContentPane().add(layeredPane);
         layeredPane.setPreferredSize(boardSize);
@@ -71,6 +77,7 @@ public class ChessView extends JFrame implements MouseListener, MouseMotionListe
     
     
     public void mousePressed(MouseEvent e){
+        if(boardLock){return;}
         chessPiece = null;
         Component c =  chessBoard.findComponentAt(e.getX(), e.getY());
 
@@ -78,6 +85,7 @@ public class ChessView extends JFrame implements MouseListener, MouseMotionListe
         if (c instanceof JPanel) 
         return;
 
+        try{
         loc = Integer.parseInt(c.getParent().getName());
        
         Point parentLocation = c.getParent().getLocation();
@@ -88,9 +96,14 @@ public class ChessView extends JFrame implements MouseListener, MouseMotionListe
         chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
         layeredPane.add(chessPiece, JLayeredPane.DRAG_LAYER);
         }
+        catch (NullPointerException ex){
+            
+        }
+        }
     
     
     public void mouseReleased(MouseEvent e) {
+        if(boardLock){return;}
         if(chessPiece == null) return;
        
         chessPiece.setVisible(false);
@@ -115,7 +128,9 @@ public class ChessView extends JFrame implements MouseListener, MouseMotionListe
             catch(Exception ex)
             {System.out.println("\nINVALID MOVE");
              return;}
+            boardLock = true;
             makeComputerMove();
+            boardLock = false;
         }
 
         }
@@ -149,12 +164,12 @@ public class ChessView extends JFrame implements MouseListener, MouseMotionListe
                 Searcher.searchLayer1(!playerColor, board, searchDepth);
                 makeBoard(board);
             } catch (Exception e) {
-                e.printStackTrace();
                 Searcher.determineWinner(board, playerColor);
             }
     }
     
     public void mouseDragged(MouseEvent me) {
+        if (boardLock){return;}
         if (chessPiece == null) return;
        chessPiece.setLocation(me.getX() + xAdjustment, me.getY() + yAdjustment);
        }

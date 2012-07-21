@@ -10,3 +10,6 @@ Also, fixed a bug in the end of game.
 
 Version 2.0
 Added a basic GUI. Will add more features to it later.
+
+Version 2.1
+Fixed some problems in the GUI

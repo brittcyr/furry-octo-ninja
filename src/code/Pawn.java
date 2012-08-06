@@ -29,13 +29,13 @@ public class Pawn extends ChessPiece {
                 int[] one = { me, me - 8 };
                 ret.add(one);
             }
-            if (me % 8 > 0) {
+            if (me % 8 > 0 && me >= 9) {
                 if (board[me - 9] < 0) {
                     int[] captLeft = { me, me - 9 };
                     ret.add(captLeft);
                 }
             }
-            if (me % 8 < 7) {
+            if (me % 8 < 7 && me >= 7) {
                 if (board[me - 7] < 0) {
                     int[] captRight = { me, me - 7 };
                     ret.add(captRight);
@@ -53,14 +53,14 @@ public class Pawn extends ChessPiece {
                 int[] one = { me, me + 8 };
                 ret.add(one);
             }
-            if (me % 8 > 0) {
+            if (me % 8 > 0 && me < 54) {
                 if (board[me + 7] > 0) {
                     int[] captLeft = { me, me + 7 };
                     ret.add(captLeft);
                 }
             }
             if (me % 8 < 7) {
-                if (board[me + 9] > 0) {
+                if (board[me + 9] > 0 && me < 54) {
                     int[] captRight = { me, me + 9 };
                     ret.add(captRight);
                 }

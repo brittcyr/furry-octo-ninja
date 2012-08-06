@@ -65,10 +65,12 @@ public class Main {
                     board.prettyPrint();
                     CLI.makeMoveForUser(board, playerColor);
                     Searcher.searchLayer1(!playerColor, board, searchDepth);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (GameOverException e) {
                     Searcher.determineWinner(board, playerColor);
                     break;
+                }
+                catch (Exception ex){
+                    ex.printStackTrace();
                 }
             }
         }

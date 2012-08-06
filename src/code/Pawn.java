@@ -49,7 +49,7 @@ public class Pawn extends ChessPiece {
                     ret.add(two);
                 }
             }
-            if (me < 63 && board[me + 8] == 0) {
+            if (me < 54 && board[me + 8] == 0) {
                 int[] one = { me, me + 8 };
                 ret.add(one);
             }

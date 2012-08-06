@@ -108,8 +108,6 @@ public class CLI {
             case 'U':
                 undo(board);
                 break;
-            /*case 'C':
-                capturedPieces(board,playerColor);*/
             case 'X':
                 override(board,playerColor);
                 break;

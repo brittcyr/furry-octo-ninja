@@ -6,6 +6,7 @@ import java.util.Random;
 import View.ChessView;
 
 public class Searcher {
+    static boolean randomized = true;
 
     /*
      * This is the first version of the search It will have a search depth of 1
@@ -19,6 +20,7 @@ public class Searcher {
      * 
      * @return None
      */
+    @Deprecated
     public static void naiveSearch(boolean color, ChessBoard board) {
         ArrayList<int[]> moves = board.getMoves(color);
 
@@ -67,19 +69,19 @@ public class Searcher {
         if(depth == 0){
             return 0.0;
         }
-        ArrayList<int[]> moves = ChessView.board.getMoves(color);
+        ArrayList<int[]> moves = Main.board.getMoves(color);
         int size = moves.size();
         double[] scores = new double[size];
 
         int index = 0;
         for (int[] m : moves) {
-            int prevPiece = ChessView.board.board[m[1]];
+            int prevPiece = Main.board.board[m[1]];
             if (Math.abs(prevPiece) == 6){
                 return prevPiece*100.0*-1;
             }
-            ChessView.board.makeMove(m);
-            scores[index] = ChessView.board.scoreChange(m, prevPiece) + searchR(!color, depth - 1);
-            ChessView.board.undoMove(m, prevPiece);
+            Main.board.makeMove(m);
+            scores[index] = Main.board.scoreChange(m, prevPiece) + searchR(!color, depth - 1);
+            Main.board.undoMove(m, prevPiece);
             index++;
         }
 
@@ -107,10 +109,11 @@ public class Searcher {
      * 
      * @return result double that is the score at this node
      */
-    public static int[] searchLayer1(boolean color, ChessBoard board, int depth) throws Exception{
+    public static int[] searchLayer1(boolean color, ChessBoard board, int depth) 
+            throws GameOverException{
         ArrayList<int[]> moves = board.getValidMoves(color);
         if (checkGameOver(board, color)){
-            throw new Exception("GAME OVER");
+            throw new GameOverException("ME");
         }
         int size = moves.size();
         double[] scores = new double[size];
@@ -128,10 +131,12 @@ public class Searcher {
 
         int bestIndex = 0;
         double bestScore = scores[0];
+        if (randomized){
         Random r = new Random();
         for(int x = 1; x < size; x++){
             double scale = 10.0;
             scores[x] *= (r.nextDouble()+scale)/scale;
+        }
         }
 
         for (int x = 1; x < size; x++) {
@@ -196,7 +201,7 @@ public class Searcher {
         return false;
     }
     
-    public static void hint(ChessBoard board, boolean playerColor) throws Exception{
+    public static void hint(ChessBoard board, boolean playerColor) throws GameOverException{
         searchLayer1(playerColor,board,ChessView.searchDepth);
     }
 }

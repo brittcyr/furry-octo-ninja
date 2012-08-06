@@ -43,9 +43,12 @@ public class Main {
                     //CLI.makeMoveForUser(board, playerColor);
                     //TODO: Use the Connection class
                     Searcher.searchLayer1(!playerColor, board, searchDepth);
-                } catch (Exception e) {
+                } catch (GameOverException e) {
                     Searcher.determineWinner(board, playerColor);
                     break;
+                }
+                catch (Exception ex){
+                    ex.printStackTrace();
                 }
             }
         }
@@ -69,7 +72,7 @@ public class Main {
                     Searcher.determineWinner(board, playerColor);
                     break;
                 }
-                catch (Exception ex){
+                    catch (Exception ex){
                     ex.printStackTrace();
                 }
             }

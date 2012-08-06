@@ -38,7 +38,7 @@ public class CLI {
     }
     
     public static void userMakeMove(ChessBoard board, boolean playerColor, String start, String end)
-    throws Exception{
+    throws InvalidInputException{
             int startLet = toInt(start.substring(0, 1));
             int endLet = toInt(end.substring(0, 1));
 
@@ -50,12 +50,13 @@ public class CLI {
             int[] attemptedMove = new int[] { startInt, endInt };
 
             if (!isValidMoveForUser(board, playerColor, attemptedMove)) {
-                throw new Exception("ILLEGAL MOVE");
+                throw new InvalidInputException("ILLEGAL MOVE");
             }
 
             board.makeMove(new int[] { startInt, endInt });
             board.history.add(new int[] {startInt, endInt});
             board.checkPawnPromote();
+            //TODO: Check for en passant
         
     }
 
@@ -70,7 +71,7 @@ public class CLI {
         return false;
     }
 
-    public static int toInt(String str) throws Exception {
+    public static int toInt(String str) throws InvalidInputException {
         if (str.equalsIgnoreCase("a")) {
             return 0;
         }
@@ -95,10 +96,11 @@ public class CLI {
         if (str.equalsIgnoreCase("h")) {
             return 7;
         }
-        throw new Exception();
+        throw new InvalidInputException("BAD LETTER");
     }
     
-    public static void handleOptions(ChessBoard board, boolean playerColor, String str) throws Exception{
+    public static void handleOptions(ChessBoard board, boolean playerColor, String str) 
+            throws InvalidInputException, GameOverException, IOException{
         char option = str.charAt(1);
         switch (Character.toUpperCase(option)){
             case 'H':
@@ -121,7 +123,7 @@ public class CLI {
                 printMoves();
                 break;
             default:
-                throw new Exception("INVALID INPUT");
+                throw new InvalidInputException("INVALID INPUT");
         }
     }
 
@@ -139,8 +141,9 @@ public class CLI {
             board.getBoard()[x] = board2.getBoard()[x];
         }
     }
-    
-    public static void override(ChessBoard board, boolean playerColor) throws Exception{
+
+    public static void override(ChessBoard board, boolean playerColor)
+            throws InvalidInputException, IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         String line1 = in.readLine();
         String line2 = in.readLine();

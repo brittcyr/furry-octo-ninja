@@ -33,7 +33,7 @@ public class Main {
             if (!playerColor) {
                 try {
                     Searcher.searchLayer1(!playerColor, board, searchDepth);
-                } catch (Exception e) {
+                } catch (GameOverException e) {
                 }
             }
 
@@ -41,7 +41,7 @@ public class Main {
                 try {
                     board.prettyPrint();
                     //CLI.makeMoveForUser(board, playerColor);
-                    //TODO: Use the Connection class
+                    //TODO: Use the Connection class to make move for user
                     Searcher.searchLayer1(!playerColor, board, searchDepth);
                 } catch (GameOverException e) {
                     Searcher.determineWinner(board, playerColor);

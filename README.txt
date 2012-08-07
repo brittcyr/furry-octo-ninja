@@ -1,4 +1,4 @@
-Britt Cyr Chess Version 2.0
+Britt Cyr Chess Version 2.2
 
 This is my computer chess project. To run it, Main.main();
 

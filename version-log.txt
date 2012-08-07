@@ -13,3 +13,6 @@ Added a basic GUI. Will add more features to it later.
 
 Version 2.1
 Fixed some problems in the GUI
+
+Version 2.2
+Fixed endgame problem in pawn

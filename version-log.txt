@@ -16,3 +16,6 @@ Fixed some problems in the GUI
 
 Version 2.2
 Fixed endgame problem in pawn
+
+Version 3.0
+Speed improvements

@@ -57,7 +57,7 @@ public class ChessBoard {
                         99.00,99.00,99.00,99.00,99.00,99.00,99.00,99.00,
                         100.00,101.00,101.00,100.00,100.00,100.00,101.00,100.00};
 
-    double[][] scores = {pawn, pawn, rook, knight, bishop, queen, king};
+    double[][] scores = {null, pawn, rook, knight, bishop, queen, king};
     private final char[] pieces = { '-', 'P', 'R', 'N', 'B', 'Q', 'K' };
     public int[] board;
 
@@ -164,21 +164,24 @@ public class ChessBoard {
      */
     public double scoreChange(int[] move, int prevPiece){
         double scoreChange = 0.00;
+        int m0 = move[0];
+        int m1 = move[1];
+        int bm1 = board[m1];
         
         if(prevPiece > 0){
-            scoreChange -= scores[prevPiece][move[1]];
+            scoreChange -= scores[prevPiece][m1];
         }
         else if(prevPiece < 0){
-            scoreChange += scores[-prevPiece][flip(move[1])];
+            scoreChange += scores[-prevPiece][flip(m1)];
         }
         
-        if(board[move[1]] > 0){
-            scoreChange -= scores[board[move[1]]][move[0]];
-            scoreChange += scores[board[move[1]]][move[1]];
+        if(bm1 > 0){
+            scoreChange -= scores[bm1][m0];
+            scoreChange += scores[bm1][m1];
         }
         else{
-            scoreChange += scores[-board[move[1]]][flip(move[0])];
-            scoreChange -= scores[-board[move[1]]][flip(move[1])];
+            scoreChange += scores[-bm1][flip(m0)];
+            scoreChange -= scores[-bm1][flip(m1)];
         }
         
         return scoreChange;
@@ -194,7 +197,6 @@ public class ChessBoard {
      * @modifies board
      */
     public void makeMove(int[] move) {
-        try{
         int start = move[0];
         int end = move[1];
         int piece = board[start];
@@ -210,8 +212,6 @@ public class ChessBoard {
                 makeMove(new int[] {move[0]-4,move[0]-1});
             }
         }
-        }
-        catch (Exception e){}
     }
     
     /*
@@ -222,20 +222,20 @@ public class ChessBoard {
      * @modifies board
      * @return None
      */
-
+    
     public void undoMove(int[] move, int piece) {
         if ((board[move[1]] == 6 || board[move[1]] == -6)
-                && (move[1] - move[0] == 2 || move[0] - move[1] == 2)
-                && (move[0] == 4 || move[0] == 60 )) {
+                && (move[1] - move[0] == 2 || move[0] - move[1] == 2)) {
             if (move[0] < move[1]) {
                 makeMove(new int[] { move[0] + 1, move[0] + 3 });
             } else {
                 makeMove(new int[] { move[0] - 1, move[0] - 4 });
             }
-            makeMove(new int[] { move[1], move[0] });
+            board[move[0]] = board[move[1]];
+            board[move[1]] = 0;
         }
         else{
-            makeMove(new int[] { move[1], move[0] });
+            board[move[0]] = board[move[1]];
             board[move[1]] = piece;
         }
     }

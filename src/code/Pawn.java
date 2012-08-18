@@ -22,40 +22,32 @@ public class Pawn extends ChessPiece {
                 return;
             }
             if (me >= 42 && board[me - 8] == 0 && board[me - 16] == 0) {
-                int[] two = { me, me - 16 };
-                ret.add(two);
+                ret.add(new int[] { me, me - 16 });
             }
             if (board[me - 8] == 0) {
-                int[] one = { me, me - 8 };
-                ret.add(one);
+                ret.add(new int[] { me, me - 8 });
             }
             if (me % 8 > 0 && board[me - 9] < 0) {
-                int[] captLeft = { me, me - 9 };
-                ret.add(captLeft);
+                ret.add(new int[] { me, me - 9 });
             }
             if (me % 8 < 7 && board[me - 7] < 0) {
-                int[] captRight = { me, me - 7 };
-                ret.add(captRight);
+                ret.add(new int[] { me, me - 7 });
             }
         } else {
             if (me >= 54) {
                 return;
             }
             if (me < 16 && board[me + 8] == 0 && board[me + 16] == 0) {
-                int[] two = { me, me + 16 };
-                ret.add(two);
+                ret.add(new int[] { me, me + 16});
             }
             if (board[me + 8] == 0) {
-                int[] one = { me, me + 8 };
-                ret.add(one);
+                ret.add(new int[] { me, me + 8 });
             }
             if (me % 8 > 0 && board[me + 7] > 0) {
-                int[] captLeft = { me, me + 7 };
-                ret.add(captLeft);
+                ret.add(new int[] { me, me + 7});
             }
             if (me % 8 < 7 && board[me + 9] > 0) {
-                int[] captRight = { me, me + 9 };
-                ret.add(captRight);
+                ret.add(new int[] { me, me + 9 });
             }
         }
     }

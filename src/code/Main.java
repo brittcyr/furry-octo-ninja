@@ -43,6 +43,7 @@ public class Main {
                     //CLI.makeMoveForUser(board, playerColor);
                     //TODO: Use the Connection class to make move for user
                     Searcher.searchLayer1(!playerColor, board, searchDepth);
+                    //TODO: Create algebraic chess notation
                 } catch (GameOverException e) {
                     Searcher.determineWinner(board, playerColor);
                     break;

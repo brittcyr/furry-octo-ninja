@@ -1,6 +1,6 @@
 Britt Cyr Chess Version 2.2
 
-This is my computer chess project. To run it, Main.main();
+To run , Main.main();
 
 To make a move, you need to type the start square <enter> end square <enter>
 Square is a letter for the column and number for row. No spaces
